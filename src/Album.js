@@ -16,7 +16,11 @@ import Link from "@material-ui/core/Link";
 import Popup from "reactjs-popup";
 import "./Album.css";
 import firestore from "./firestore";
-import firebase from 'firebase';
+import firebase from "firebase";
+import coronavirusModel from ".\\images\\coronavirus.png";
+import dnaModel from ".\\images\\dna.png";
+import waterModel from "./images/water.png"
+import co2Model from "./images/co2.png";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -50,72 +54,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const db = firebase.firestore().collection("test").get();
-console.log(db);
+// const db = firebase.firestore().collection("test").get();
+// console.log(db);
 
 const cards = [
   {
-    title: "Strong Acids",
-    model:
-      "HCl: Hydrochloric acid\nHNO3: Nitric acid\nH2SO4: Sulfuric acid\nHBr: Hydrobromic acid\nHI: Hydroiodic acid (also known as hydriodic acid)\nHClO4: Perchloric acid\nHClO3: Chloric acid",
+    title: "Coronavirus",
+    model: (
+      <img
+        style={{
+          color: "#6a6a6a",
+          textDecoration: "none",
+        }}
+        src={coronavirusModel}
+      />
+    ),
     image:
-      "https://www.thoughtco.com/thmb/u_XJxqLgUCkRAU_PXn3qdpio7Qc=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Sulfuric-acid-58de7ffa5f9b58468367c7b5.jpg",
-    description: "In chemistry, there are 7 strong acids you need to know.",
-    text:
-      'In chemistry, there are seven "strong" acids. What makes them "strong" is the fact that they completely dissociate into their ions (H+ and an anion) when they are mixed with water. Every other acid is a weak acid. Because there are only seven strong acids, it is easy to commit the list to memory. Note that some chemistry instructors may refer only to six strong acids.',
+      "https://ewscripps.brightspotcdn.com/dims4/default/7671677/2147483647/strip/true/crop/1303x733+15+0/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F0a%2Ff2%2F72b1b4d94794992a0772cb593ce5%2Fscreen-shot-2020-02-25-at-10.49.27%20AM.png",
+    description: "a group of RNA viruses",
+    text: `Coronaviruses are a group of related RNA viruses that cause diseases in mammals and birds. In humans, these viruses cause respiratory tract infections that can range from mild to lethal. Mild illnesses include some cases of the common cold (which is caused also by certain other viruses, predominantly rhinoviruses), while more lethal varieties can cause SARS, MERS, and COVID-19. Symptoms in other species vary: in chickens, they cause an upper respiratory tract disease, while in cows and pigs they cause diarrhea. There are as yet no vaccines or antiviral drugs to prevent or treat human coronavirus infections. (Wikipedia contributors. "Coronavirus." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 16 May. 2020. Web. 17 May. 2020.)`,
   },
   {
-    title: "Strong Bases",
-    link: "https://www.google.com/",
+    title: "DNA",
+    model: (
+      <img
+        style={{
+          color: "#6a6a6a",
+          textDecoration: "none",
+        }}
+        src={dnaModel}
+      />
+    ),
+    image:
+      "https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_shutterstock_338933429_16x9.jpg?itok=aoufPxIr",
+    description: "carries genetic instructions of living organisms",
+    text: `Deoxyribonucleic acid is a molecule composed of two polynucleotide chains that coil around each other to form a double helix carrying genetic instructions for the development, functioning, growth and reproduction of all known organisms and many viruses. DNA and ribonucleic acid (RNA) are nucleic acids. Alongside proteins, lipids and complex carbohydrates (polysaccharides), nucleic acids are one of the four major types of macromolecules that are essential for all known forms of life. (Wikipedia contributors. "DNA." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 16 May. 2020. Web. 17 May. 2020.)`,
+  },
+  {
+    title: "Hydrogen Bonding",
+    model: (
+      <img
+        style={{
+          color: "#6a6a6a",
+          textDecoration: "none",
+        }}
+        src={waterModel}
+      />
+    ),
+    image:
+      "https://d2cbg94ubxgsnp.cloudfront.net/Pictures/2000x2000fit/2/1/7/138217_shutterstock_350946731.jpg",
+    description:
+      "a partial intermolecular bonding interaction between a lone pair on an electron rich donor atom",
+    text: `A hydrogen bond is a partial intermolecular bonding interaction between a lone pair on an electron rich donor atom, particularly the second-row elements nitrogen, oxygen, or fluorine, and the antibonding molecular orbital of a bond between hydrogen and a more electronegative atom or group. Such an interacting system is generally denoted Dn–H···Ac, where the solid line denotes a polar covalent bond, and the dotted or dashed line indicates the hydrogen bond. (Wikipedia contributors. "Hydrogen bond." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 29 Apr. 2020. Web. 17 May. 2020. )`,
+  },
+  {
+    title: "Carbon Dioxide",
+    model: (
+      <img
+        style={{
+          color: "#6a6a6a",
+          textDecoration: "none",
+        }}
+        src={co2Model}
+      />
+    ),
+    image: "https://miro.medium.com/proxy/1*FBRtL-zgF37T1LChAyCXBA.jpeg",
+    description: "a molecule that consists of one carbon atom and 2 oxygen atoms",
+    text: `The carbon dioxide molecule is linear and centrosymmetric. The carbon–oxygen bond length is 116.3 pm, noticeably shorter than the bond length of a C–O single bond and even shorter than most other C–O multiply-bonded functional groups. Since it is centrosymmetric, the molecule has no electrical dipole. Carbon dioxide is soluble in water, in which it reversibly forms carbonic acid, which is a weak acid since its ionization in water is incomplete. (Wikipedia contributors. "Carbon dioxide." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 10 May. 2020. Web. 17 May. 2020. )`,
   },
 ];
-
-function displayInfo(props) {
-  return (
-    <Popup
-      trigger={
-        <button size="small" color="primary" className="button">
-          {" "}
-          Open Modal{" "}
-        </button>
-      }
-      modal
-    >
-      {(close) => (
-        <div className="modal">
-          <a className="close" onClick={close}>
-            &times;
-          </a>
-          <div className="header"> Modal Title </div>
-          <div className="content">{props.text}</div>
-          <div className="actions">
-            <Popup
-              trigger={<button className="button"> Trigger </button>}
-              position="top center"
-              closeOnDocumentClick
-            >
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-                magni omnis delectus nemo, maxime molestiae dolorem numquam
-                mollitia, voluptate ea, accusamus excepturi deleniti ratione
-                sapiente! Laudantium, aperiam doloribus. Odit, aut.
-              </span>
-            </Popup>
-            <button
-              className="button"
-              onClick={() => {
-                console.log("modal closed ");
-                close();
-              }}
-            >
-              close modal
-            </button>
-          </div>
-        </div>
-      )}
-    </Popup>
-  );
-}
 
 export default function Album() {
   const classes = useStyles();
@@ -204,7 +211,7 @@ export default function Album() {
                             <Popup
                               trigger={
                                 <Button size="small" color="primary">
-                                  Models
+                                  View
                                 </Button>
                               }
                               position="top center"
@@ -229,7 +236,7 @@ export default function Album() {
                     <Popup
                       trigger={
                         <Button size="small" color="primary">
-                          Models
+                          View
                         </Button>
                       }
                       position="top center"
@@ -258,7 +265,7 @@ export default function Album() {
           a{" "}
           <a
             style={{
-              color: "#6a6a6a",
+              color: "#696969",
               textDecoration: "none",
             }}
             href="https://hthshacks.com/"
