@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import Popup from "reactjs-popup";
+import './Album.css'
 
 function Copyright() {
   return (
@@ -62,51 +64,62 @@ const useStyles = makeStyles((theme) => ({
 const cards = [
   {
     title: "Strong Acids",
-    model: "google.com",
+    model: "HCl: Hydrochloric acid\nHNO3: Nitric acid\nH2SO4: Sulfuric acid\nHBr: Hydrobromic acid\nHI: Hydroiodic acid (also known as hydriodic acid)\nHClO4: Perchloric acid\nHClO3: Chloric acid",
     image:
       "https://www.thoughtco.com/thmb/u_XJxqLgUCkRAU_PXn3qdpio7Qc=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Sulfuric-acid-58de7ffa5f9b58468367c7b5.jpg",
     description: "In chemistry, there are 7 strong acids you need to know.",
-    text: "",
+    text: "In chemistry, there are seven \"strong\" acids. What makes them \"strong\" is the fact that they completely dissociate into their ions (H+ and an anion) when they are mixed with water. Every other acid is a weak acid. Because there are only seven strong acids, it is easy to commit the list to memory. Note that some chemistry instructors may refer only to six strong acids.",
   },
   {
     title: "Strong Bases",
-    link: "google.com",
-  },
-  {
-    title: "Water",
-    link: "google.com",
-  },
-  {
-    title: "title4",
-    link: "google.com",
-  },
-  {
-    title: "title5",
-    link: "google.com",
-  },
-  {
-    title: "title6",
-    link: "google.com",
-  },
-  {
-    title: "title7",
-    link: "google.com",
-  },
-  {
-    title: "title8",
-    link: "google.com",
-  },
-  {
-    title: "title9",
-    link: "google.com",
+    link: "https://www.google.com/",
   },
 ];
 
-function popupPage(props) {
+function displayInfo(props) {
   return (
-    <div>
-          <p>{props.text}</p>
-    </div>
+    <Popup
+      trigger={
+        <button size="small" color="primary" className="button">
+          {" "}
+          Open Modal{" "}
+        </button>
+      }
+      modal
+    >
+      {(close) => (
+        <div className="modal">
+          <a className="close" onClick={close}>
+            &times;
+          </a>
+          <div className="header"> Modal Title </div>
+          <div className="content">{props.text}</div>
+          <div className="actions">
+            <Popup
+              trigger={<button className="button"> Trigger </button>}
+              position="top center"
+              closeOnDocumentClick
+            >
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
+                magni omnis delectus nemo, maxime molestiae dolorem numquam
+                mollitia, voluptate ea, accusamus excepturi deleniti ratione
+                sapiente! Laudantium, aperiam doloribus. Odit, aut.
+              </span>
+            </Popup>
+            <button
+              className="button"
+              onClick={() => {
+                console.log("modal closed ");
+                close();
+              }}
+            >
+              close modal
+            </button>
+          </div>
+        </div>
+      )}
+    </Popup>
   );
 }
 
@@ -145,20 +158,6 @@ export default function Album() {
             >
               a simple and easy way to learn new concepts using 3D AR models.
             </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
@@ -179,20 +178,71 @@ export default function Album() {
                     <Typography>{card.description}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => window.open(card.model, "_blank")}
+                    <Popup
+                      trigger={
+                        <Button size="small" color="primary">
+                          Read
+                        </Button>
+                      }
+                      modal
                     >
-                      Read
-                    </Button>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => window.open(card.model, "_blank")}
+                      {(close) => (
+                        <div className="modal">
+                          <a className="close" onClick={close}>
+                            &times;
+                          </a>
+                          <CardMedia
+                            className={classes.cardMedia}
+                            image={card.image}
+                            title="Image title"
+                          />
+                          <CardContent className={classes.cardContent}>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                            >
+                              {card.title}
+                            </Typography>
+                            <Typography>{card.text}</Typography>
+                          </CardContent>
+                          <div className="actions">
+                            <Popup
+                              trigger={
+                                <Button size="small" color="primary">
+                                  Models
+                                </Button>
+                              }
+                              position="top center"
+                              closeOnDocumentClick
+                            >
+                              <span>{card.model}</span>
+                            </Popup>
+                            <Button
+                              size="small"
+                              color="primary"
+                              onClick={() => {
+                                console.log("modal closed ");
+                                close();
+                              }}
+                            >
+                              Close
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </Popup>
+                    <Popup
+                      trigger={
+                        <Button size="small" color="primary">
+                          Models
+                        </Button>
+                      }
+                      position="top center"
+                      closeOnDocumentClick
                     >
-                      View
-                    </Button>
+                      <span>{card.model}</span>
+                    </Popup>
                   </CardActions>
                 </Card>
               </Grid>
