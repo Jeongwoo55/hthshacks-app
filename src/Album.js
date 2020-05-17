@@ -14,20 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Popup from "reactjs-popup";
-import './Album.css'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import "./Album.css";
+import firestore from "./firestore";
+import firebase from 'firebase';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -61,14 +50,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const db = firebase.firestore().collection("test").get();
+console.log(db);
+
 const cards = [
   {
     title: "Strong Acids",
-    model: "HCl: Hydrochloric acid\nHNO3: Nitric acid\nH2SO4: Sulfuric acid\nHBr: Hydrobromic acid\nHI: Hydroiodic acid (also known as hydriodic acid)\nHClO4: Perchloric acid\nHClO3: Chloric acid",
+    model:
+      "HCl: Hydrochloric acid\nHNO3: Nitric acid\nH2SO4: Sulfuric acid\nHBr: Hydrobromic acid\nHI: Hydroiodic acid (also known as hydriodic acid)\nHClO4: Perchloric acid\nHClO3: Chloric acid",
     image:
       "https://www.thoughtco.com/thmb/u_XJxqLgUCkRAU_PXn3qdpio7Qc=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Sulfuric-acid-58de7ffa5f9b58468367c7b5.jpg",
     description: "In chemistry, there are 7 strong acids you need to know.",
-    text: "In chemistry, there are seven \"strong\" acids. What makes them \"strong\" is the fact that they completely dissociate into their ions (H+ and an anion) when they are mixed with water. Every other acid is a weak acid. Because there are only seven strong acids, it is easy to commit the list to memory. Note that some chemistry instructors may refer only to six strong acids.",
+    text:
+      'In chemistry, there are seven "strong" acids. What makes them "strong" is the fact that they completely dissociate into their ions (H+ and an anion) when they are mixed with water. Every other acid is a weak acid. Because there are only seven strong acids, it is easy to commit the list to memory. Note that some chemistry instructors may refer only to six strong acids.',
   },
   {
     title: "Strong Bases",
@@ -133,7 +127,7 @@ export default function Album() {
         <Toolbar>
           <CameraIcon className={classes.icon} />
           <Typography variant="h6" color="inherit" noWrap>
-            EduAR
+            MoleculAR
           </Typography>
         </Toolbar>
       </AppBar>
@@ -148,7 +142,7 @@ export default function Album() {
               color="textPrimary"
               gutterBottom
             >
-              EduAR
+              MoleculAR
             </Typography>
             <Typography
               variant="h5"
@@ -156,7 +150,7 @@ export default function Album() {
               color="textSecondary"
               paragraph
             >
-              a simple and easy way to learn new concepts using 3D AR models.
+              a simple and easy way to learn new concepts using 3D AR models
             </Typography>
           </Container>
         </div>
@@ -253,7 +247,7 @@ export default function Album() {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          EduAR
+          MoleculAR
         </Typography>
         <Typography
           variant="subtitle1"
@@ -261,7 +255,18 @@ export default function Album() {
           color="textSecondary"
           component="p"
         >
-          EduAR
+          a{" "}
+          <a
+            style={{
+              color: "#6a6a6a",
+              textDecoration: "none",
+            }}
+            href="https://hthshacks.com/"
+            target="_blank"
+          >
+            <em>hths.hacks()</em>
+          </a>{" "}
+          project
         </Typography>
       </footer>
       {/* End footer */}
